@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cucumber/gherkin/go/v27"
+	gherkin "github.com/cucumber/gherkin/go/v27"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,7 +17,7 @@ func TestRendererRender(t *testing.T) {
 	for _, ss := range [][2]string{
 		{
 			"Feature: Foo",
-			"**Feature**: *Foo*\n",
+			"**Feature**: *Foo*\n\n",
 		},
 		{`
 Feature: Foo
@@ -28,9 +28,10 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Scenario**: *Bar*
-  **Given** that
-  **When** I do something
-  **Then** something happens`,
+
+**Given** that
+**When** I do something
+**Then** something happens`,
 		},
 		{`
 Feature: Foo
@@ -42,18 +43,19 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Scenario**: *Bar*
-  **When** I do something:
 
-  %[1]ssh
+**When** I do something:
+
+%[1]ssh
 foo
-  %[1]s`, "```"),
+%[1]s`, "```"),
 		},
 		{`
 Feature: Foo
-
   bar`, `
 **Feature**: *Foo*
-  bar`,
+
+bar`,
 		},
 		{`
 Feature: Foo
@@ -63,7 +65,8 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Scenario**: *Bar*
-  baz`,
+
+baz`,
 		},
 		{`
 Feature: Foo
@@ -72,7 +75,8 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Background**: *Bar*
-  **When** I do something`,
+
+**When** I do something`,
 		},
 		{`
 Feature: Foo
@@ -83,7 +87,8 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Background**: *Bar*
-  **Given** Baz:
+
+**Given** Baz:
 
 | foo |
 | bar |`,
@@ -99,7 +104,8 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Scenario Outline**: *Bar*
-  **When** <someone> does <something>
+
+**When** <someone> does <something>
 
 **Examples**:
 
@@ -118,7 +124,8 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Scenario Outline**: *Bar*
-  **When** <someone> does <something>
+
+**When** <someone> does <something>
 
 **Examples**:
 
@@ -141,12 +148,14 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Scenario Outline**: *Bar*
-  **When** <someone> does <something>
+
+**When** <someone> does <something>
 
 **Examples**:
 
 *Baz*
-  foo bar baz
+
+foo bar baz
 
 | someone | something |
 |---------|-----------|
@@ -167,7 +176,8 @@ Feature: Foo
 **Feature**: *Foo*
 
 **Scenario Outline**: *Bar*
-  **When** <someone> does <something>
+
+**When** <someone> does <something>
 
 **Examples**:
 

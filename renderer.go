@@ -65,19 +65,23 @@ func (r *renderer) renderScenario(s *messages.Scenario) {
 }
 
 func (r *renderer) renderSteps(ss []*messages.Step) {
+	if len(ss) != 0 {
+		r.writeLine("")
+	}
+
 	for _, s := range ss {
 		r.renderStep(s)
 	}
 }
 
 func (r *renderer) renderDocString(d *messages.DocString) {
-	r.writeLine("  ```" + d.MediaType)
+	r.writeLine("```" + d.MediaType)
 	r.writeLine(d.Content)
-	r.writeLine("  ```")
+	r.writeLine("```")
 }
 
 func (r *renderer) renderStep(s *messages.Step) {
-	r.writeLine("  **" + strings.TrimSpace(s.Keyword) + "** " + s.Text)
+	r.writeLine("**" + strings.TrimSpace(s.Keyword) + "** " + s.Text + "")
 
 	if s.DocString != nil {
 		r.writeLine("")
@@ -157,8 +161,15 @@ func (renderer) getCellWidths(rs []*messages.TableRow) []int {
 }
 
 func (r renderer) writeDescription(s string) {
-	if s != "" {
-		r.writeLine("  " + strings.TrimSpace(s))
+	trimmed := strings.TrimSpace(s)
+
+	if trimmed != "" {
+		r.writeLine("")
+
+		lines := strings.Split(trimmed, "\n")
+		for _, line := range lines {
+			r.writeLine(strings.TrimSpace(line))
+		}
 	}
 }
 
