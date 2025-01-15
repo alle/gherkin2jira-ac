@@ -22,7 +22,13 @@ func (r *renderer) Render(d *messages.GherkinDocument) string {
 }
 
 func (r *renderer) renderFeature(f *messages.Feature) {
-	r.writeLine("**" + f.Keyword + "**: *" + f.Name + "*")
+	s := "**" + f.Keyword + ":"
+
+	if f.Name != "" {
+		s += " " + f.Name
+	}
+
+	r.writeLine(s + "**")
 
 	r.writeDescription(f.Description)
 
@@ -40,20 +46,26 @@ func (r *renderer) renderFeature(f *messages.Feature) {
 }
 
 func (r *renderer) renderBackground(b *messages.Background) {
-	s := "**" + b.Keyword + "**:"
+	s := "**" + b.Keyword + ":"
 
 	if b.Name != "" {
-		s += " *" + b.Name + "*"
+		s += " " + b.Name
 	}
 
-	r.writeLine(s)
+	r.writeLine(s + "**")
 
 	r.writeDescription(b.Description)
 	r.renderSteps(b.Steps)
 }
 
 func (r *renderer) renderScenario(s *messages.Scenario) {
-	r.writeLine("**" + s.Keyword + "**: *" + s.Name + "*")
+	st := "**" + s.Keyword + ":"
+
+	if s.Name != "" {
+		st += " " + s.Name
+	}
+
+	r.writeLine(st + "**")
 
 	r.writeDescription(s.Description)
 	r.renderSteps(s.Steps)

@@ -17,7 +17,7 @@ func TestRendererRender(t *testing.T) {
 	for _, ss := range [][2]string{
 		{
 			"Feature: Foo",
-			"**Feature**: *Foo*\n\n",
+			"**Feature: Foo**\n\n",
 		},
 		{`
 Feature: Foo
@@ -25,9 +25,9 @@ Feature: Foo
     Given that
     When I do something
     Then something happens`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Scenario**: *Bar*
+**Scenario: Bar**
 
 **Given** that
 **When** I do something
@@ -40,9 +40,9 @@ Feature: Foo
     """sh
     foo
     """`, fmt.Sprintf(`
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Scenario**: *Bar*
+**Scenario: Bar**
 
 **When** I do something:
 
@@ -53,7 +53,7 @@ foo
 		{`
 Feature: Foo
   bar`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
 bar`,
 		},
@@ -62,9 +62,9 @@ Feature: Foo
   Scenario: Bar
 
     baz`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Scenario**: *Bar*
+**Scenario: Bar**
 
 baz`,
 		},
@@ -72,9 +72,9 @@ baz`,
 Feature: Foo
   Background: Bar
     When I do something`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Background**: *Bar*
+**Background: Bar**
 
 **When** I do something`,
 		},
@@ -84,9 +84,9 @@ Feature: Foo
   Given Baz:
     | foo |
     | bar |`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Background**: *Bar*
+**Background: Bar**
 
 **Given** Baz:
 
@@ -101,9 +101,9 @@ Feature: Foo
       | someone | something |
       | I       | cooking   |
       | You     | coding    |`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Scenario Outline**: *Bar*
+**Scenario Outline: Bar**
 
 **When** <someone> does <something>
 
@@ -121,9 +121,9 @@ Feature: Foo
       | someone | something |
       | I       | cooking   |
       | You     | coding    |`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Scenario Outline**: *Bar*
+**Scenario Outline: Bar**
 
 **When** <someone> does <something>
 
@@ -145,9 +145,9 @@ Feature: Foo
       | someone | something |
       | I       | cooking   |
       | You     | coding    |`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Scenario Outline**: *Bar*
+**Scenario Outline: Bar**
 
 **When** <someone> does <something>
 
@@ -173,9 +173,9 @@ Feature: Foo
       | something |
       | cooking   |
       | coding    |`, `
-**Feature**: *Foo*
+**Feature: Foo**
 
-**Scenario Outline**: *Bar*
+**Scenario Outline: Bar**
 
 **When** <someone> does <something>
 
